@@ -38,6 +38,7 @@ const initialState = {
       age: 35,
     },
   ],
+  toDelete: {},
 };
 
 const playerSlice = createSlice({
@@ -49,11 +50,22 @@ const playerSlice = createSlice({
         id: state.players.length,
         ...action.payload,
       };
-      state.players = [...state.players, newPlayer]
+      state.players = [...state.players, newPlayer];
+    },
+    addToDelete: (state, action) => {
+      console.log(action.payload);
+      state.toDelete = { ...action.payload };
+    },
+    deletePlayer: (state, action) => {
+      const playerIdToDelete = state.toDelete?.id;
+      state.players = state.players.filter(
+        (player) => player.id !== playerIdToDelete
+      );
+      state.toDelete = {};
     },
   },
 });
 
-export const {addPlayer} = playerSlice.actions;
+export const { addPlayer, addToDelete, deletePlayer } = playerSlice.actions;
 
 export default playerSlice.reducer;

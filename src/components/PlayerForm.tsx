@@ -22,26 +22,36 @@ const PlayerForm = ({
   text,
 }: {
   name: string;
-  age: string | number  ;
+  age: string;
   playerType: "Batter" | "WicketKeeper" | "Bowler";
-  matchesPlayed: string | number;
+  matchesPlayed: string;
   text: "Add Player" | "Update Player";
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const initialValues = {
+  const initialValues: {
+    name: string;
+    age: string;
+    playerType: "Batter" | "WicketKeeper" | "Bowler";
+    matchesPlayed: string;
+  } = {
     name: "",
     age: "",
-    playerType: "",
+    playerType: "Batter",
     matchesPlayed: "",
   };
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values: {
+    name: string;
+    age: string;
+    playerType: "Batter" | "WicketKeeper" | "Bowler";
+    matchesPlayed: string;
+  }) => {
     // You can perform your desired actions here
-  
+
     console.log(values);
     dispatch(addPlayer({ ...values }));
-    navigate('/')
+    navigate("/");
   };
 
   // performing form validation using formik
@@ -49,7 +59,12 @@ const PlayerForm = ({
     initialValues,
     onSubmit: handleSubmit,
     validate: (values) => {
-      const errors = {};
+      const errors: {
+        name?: string;
+        age?: string;
+        playerType?: string;
+        matchesPlayed?: string | number;
+      } = {};
 
       if (!name && values.name === "") {
         errors.name = "Enter the Name of the Player";
@@ -113,7 +128,7 @@ const PlayerForm = ({
                 name="age"
                 label="Age"
                 type="number"
-                value={age >=18 ? age : formik.values.age}
+                value={parseInt(age) >= 18 ? age : formik.values.age}
                 onChange={formik.handleChange}
                 error={formik.touched.age && Boolean(formik.errors.age)}
                 helperText={formik.touched.age && formik.errors.age}
@@ -129,7 +144,11 @@ const PlayerForm = ({
                   id="playerType"
                   name="playerType"
                   label="Player Type"
-                  value={playerType === "Batter" ?   "Batter" : formik.values.playerType}
+                  value={
+                    playerType === "Batter"
+                      ? "Batter"
+                      : formik.values.playerType
+                  }
                   onChange={formik.handleChange}
                   error={
                     formik.touched.playerType &&

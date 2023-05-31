@@ -9,12 +9,18 @@ import {
   Paper,
   Button,
 } from "@mui/material";
-import {useSelector} from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
+import { addToDelete } from "../reducers/PlayerSlice";
+import { useNavigate } from "react-router";
 
 const PlayerTable = () => {
- 
-  const {players} = useSelector(state => state.players);
- 
+  const { players } = useSelector((state) => state.players);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const addToDel = (item: any) => {
+    dispatch(addToDelete(item));
+    navigate('/confirm-delete')
+  };
   return (
     <div>
       <Typography
@@ -56,7 +62,12 @@ const PlayerTable = () => {
                   >
                     Update
                   </Button>
-                  <Button variant="contained" color="warning" size="small">
+                  <Button
+                    variant="contained"
+                    color="warning"
+                    size="small"
+                    onClick={() => addToDel(player)}
+                  >
                     Delete
                   </Button>
                 </TableCell>
