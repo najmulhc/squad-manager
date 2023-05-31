@@ -50,8 +50,8 @@ const PlayerForm = ({
 
       if (!age && !values.age) {
         errors.age = "Enter the age of the Player";
-      } else if (parseInt(values.age) < 18 || parseInt(values.age) > 32) {
-        errors.age = "Age must be between 18 and 32";
+      } else if (parseInt(values.age) < 18 || parseInt(values.age) > 37) {
+        errors.age = "Age must be between 18 and 37";
       }
 
       if (!playerType && !values.playerType) {
@@ -60,8 +60,8 @@ const PlayerForm = ({
 
       if (!matchesPlayed && !values.matchesPlayed) {
         errors.matchesPlayed = "Enter the number of matches played by the Player";
-      } else if (parseInt(values.matchesPlayed) > 150) {
-        errors.matchesPlayed = "A  player Can not play more than 150 matches";
+      } else if (parseInt(values.matchesPlayed) > 250) {
+        errors.matchesPlayed = "A  player Can not play more than 250 matches";
       } else if (parseInt(values.matchesPlayed) < 0) {
         errors.matchesPlayed =
           "A player can not play negative amount of matches";
