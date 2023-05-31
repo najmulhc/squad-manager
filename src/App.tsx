@@ -1,12 +1,13 @@
-import { useState } from "react";
 import "./App.css";
+import { RouterProvider } from "react-router";
+import router from "./router";
+import Navbar from "./components/Navbar";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
- <p>testing</p>
+      <Navbar />
+      <RouterProvider router={router} />
     </>
   );
 }
