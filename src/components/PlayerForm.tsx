@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import { useNavigate } from "react-router";
 import {
   TextField,
   Button,
@@ -11,7 +12,19 @@ import {
   Select,
 } from "@mui/material";
 
-const PlayerForm = () => {
+const PlayerForm = ({
+  name,
+  age,
+  playerType,
+  matchesPlayed,
+  text
+}: {
+  name: string;
+  age: string | number;
+  playerType: "Batter" | "WicketKeeper" | "Bowler";
+  matchesPlayed: string | number; text: "Add Player" | "Update Player"
+}) => {
+  const navigate = useNavigate();
   const initialValues = {
     name: "",
     age: "",
@@ -21,8 +34,8 @@ const PlayerForm = () => {
 
   const handleSubmit = (values) => {
     console.log(values); // You can perform your desired actions here
+    navigate("/");
   };
-
 
   // performing form validation using formik
   const formik = useFormik({
@@ -31,21 +44,21 @@ const PlayerForm = () => {
     validate: (values) => {
       const errors = {};
 
-      if (!values.name) {
+      if (!name && !values.name) {
         errors.name = "Required";
       }
 
-      if (!values.age) {
+      if (!age && !values.age) {
         errors.age = "Required";
-      } else if (values.age < 18 || values.age > 32) {
+      } else if (parseInt(values.age) < 18 || parseInt(values.age) > 32) {
         errors.age = "Age must be between 18 and 32";
       }
 
-      if (!values.playerType) {
+      if (!playerType && !values.playerType) {
         errors.playerType = "Required";
       }
 
-      if (!values.matchesPlayed) {
+      if (!matchesPlayed && !values.matchesPlayed) {
         errors.matchesPlayed = "Required";
       } else if (parseInt(values.matchesPlayed) > 150) {
         errors.matchesPlayed = "A  player Can not play more than 150 matches";
@@ -78,7 +91,7 @@ const PlayerForm = () => {
                 id="name"
                 name="name"
                 label="Name"
-                value={formik.values.name || "Lord Shanto" || ""}
+                value={ formik.values.name || name }
                 onChange={formik.handleChange}
                 error={formik.touched.name && Boolean(formik.errors.name)}
                 helperText={formik.touched.name && formik.errors.name}
@@ -92,7 +105,7 @@ const PlayerForm = () => {
                 name="age"
                 label="Age"
                 type="number"
-                value={formik.values.age || 23}
+                value={formik.values.age || age}
                 onChange={formik.handleChange}
                 error={formik.touched.age && Boolean(formik.errors.age)}
                 helperText={formik.touched.age && formik.errors.age}
@@ -108,7 +121,7 @@ const PlayerForm = () => {
                   id="playerType"
                   name="playerType"
                   label="Player Type"
-                  value={formik.values.playerType}
+                  value={formik.values.playerType || playerType}
                   onChange={formik.handleChange}
                   error={
                     formik.touched.playerType &&
@@ -118,7 +131,7 @@ const PlayerForm = () => {
                 >
                   <MenuItem value="">Select player type</MenuItem>
                   <MenuItem value="Batter">Batter</MenuItem>
-                  <MenuItem value="Wicket Keeper">Wicket Keeper</MenuItem>
+                  <MenuItem value="WicketKeeper">Wicket Keeper</MenuItem>
                   <MenuItem value="Bowler">Bowler</MenuItem>
                 </Select>
               </FormControl>
@@ -129,7 +142,7 @@ const PlayerForm = () => {
                 name="matchesPlayed"
                 label="Matches Played"
                 type="number"
-                value={formik.values.matchesPlayed}
+                value={formik.values.matchesPlayed || matchesPlayed}
                 onChange={formik.handleChange}
                 error={
                   formik.touched.matchesPlayed &&
@@ -146,10 +159,10 @@ const PlayerForm = () => {
               <Button
                 type="submit"
                 variant="contained"
-                color="primary"
+                color="success"
                 fullWidth
               >
-                Submit
+               {text}
               </Button>
             </Grid>
           </Grid>

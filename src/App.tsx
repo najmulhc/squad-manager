@@ -1,15 +1,14 @@
-import { useState } from 'react'
-import './App.css'
-import PlayerForm from './components/PlayerForm'
+import { useState } from "react";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <>
-      <PlayerForm/>
+ <p>testing</p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
