@@ -44,10 +44,16 @@ const playerSlice = createSlice({
   name: "players",
   initialState,
   reducers: {
-   
+    addPlayer: (state, action) => {
+      const newPlayer = {
+        id: state.players.length,
+        ...action.payload,
+      };
+      state.players = [...state.players, newPlayer]
+    },
   },
 });
 
-export const {  } = playerSlice.actions;
+export const {addPlayer} = playerSlice.actions;
 
 export default playerSlice.reducer;

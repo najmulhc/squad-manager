@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
 import { useNavigate } from "react-router";
+import { addPlayer } from "../reducers/PlayerSlice";
 import {
   TextField,
   Button,
@@ -11,20 +12,23 @@ import {
   InputLabel,
   Select,
 } from "@mui/material";
+import { useDispatch } from "react-redux";
 
 const PlayerForm = ({
   name,
   age,
   playerType,
   matchesPlayed,
-  text
+  text,
 }: {
   name: string;
-  age: string | number;
+  age: string | number  ;
   playerType: "Batter" | "WicketKeeper" | "Bowler";
-  matchesPlayed: string | number; text: "Add Player" | "Update Player"
+  matchesPlayed: string | number;
+  text: "Add Player" | "Update Player";
 }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const initialValues = {
     name: "",
     age: "",
@@ -33,8 +37,11 @@ const PlayerForm = ({
   };
 
   const handleSubmit = (values) => {
-    console.log(values); // You can perform your desired actions here
-    navigate("/");
+    // You can perform your desired actions here
+  
+    console.log(values);
+    dispatch(addPlayer({ ...values }));
+    navigate('/')
   };
 
   // performing form validation using formik
@@ -59,7 +66,8 @@ const PlayerForm = ({
       }
 
       if (!matchesPlayed && !values.matchesPlayed) {
-        errors.matchesPlayed = "Enter the number of matches played by the Player";
+        errors.matchesPlayed =
+          "Enter the number of matches played by the Player";
       } else if (parseInt(values.matchesPlayed) > 250) {
         errors.matchesPlayed = "A  player Can not play more than 250 matches";
       } else if (parseInt(values.matchesPlayed) < 0) {
@@ -91,7 +99,7 @@ const PlayerForm = ({
                 id="name"
                 name="name"
                 label="Name"
-                value={ formik.values.name || name }
+                value={formik.values.name || name}
                 onChange={formik.handleChange}
                 error={formik.touched.name && Boolean(formik.errors.name)}
                 helperText={formik.touched.name && formik.errors.name}
@@ -105,7 +113,7 @@ const PlayerForm = ({
                 name="age"
                 label="Age"
                 type="number"
-                value={formik.values.age || age}
+                value={age >=18 ? age : formik.values.age}
                 onChange={formik.handleChange}
                 error={formik.touched.age && Boolean(formik.errors.age)}
                 helperText={formik.touched.age && formik.errors.age}
@@ -121,7 +129,7 @@ const PlayerForm = ({
                   id="playerType"
                   name="playerType"
                   label="Player Type"
-                  value={formik.values.playerType || playerType}
+                  value={playerType === "Batter" ?   "Batter" : formik.values.playerType}
                   onChange={formik.handleChange}
                   error={
                     formik.touched.playerType &&
@@ -162,7 +170,7 @@ const PlayerForm = ({
                 color="success"
                 fullWidth
               >
-               {text}
+                {text}
               </Button>
             </Grid>
           </Grid>
