@@ -44,22 +44,22 @@ const PlayerForm = ({
     validate: (values) => {
       const errors = {};
 
-      if (!name && !values.name) {
-        errors.name = "Required";
+      if (!name && values.name === "") {
+        errors.name = "Enter the Name of the Player";
       }
 
       if (!age && !values.age) {
-        errors.age = "Required";
+        errors.age = "Enter the age of the Player";
       } else if (parseInt(values.age) < 18 || parseInt(values.age) > 32) {
         errors.age = "Age must be between 18 and 32";
       }
 
       if (!playerType && !values.playerType) {
-        errors.playerType = "Required";
+        errors.playerType = "Select the type of the Player";
       }
 
       if (!matchesPlayed && !values.matchesPlayed) {
-        errors.matchesPlayed = "Required";
+        errors.matchesPlayed = "Enter the number of matches played by the Player";
       } else if (parseInt(values.matchesPlayed) > 150) {
         errors.matchesPlayed = "A  player Can not play more than 150 matches";
       } else if (parseInt(values.matchesPlayed) < 0) {

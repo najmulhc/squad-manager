@@ -24,7 +24,7 @@ export default function AddPlayer() {
       >
         Add Player
       </Typography>
-      <PlayerForm text="Add Player" name=" " age={18} playerType="Batter" matchesPlayed={0} />
+      <PlayerForm text="Add Player" name="" age={18} playerType="Batter" matchesPlayed={0} />
     </main>
   );
 }

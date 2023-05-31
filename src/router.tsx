@@ -1,11 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 import AddPlayer from "./pages/AddPlayer";
 import UpdatePlayer from "./pages/UpdatePlayer";
+import Home from "./pages/Home";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello world!</div>,
+    element: <Home/>,
   },
   {
     path: "/add-player",
