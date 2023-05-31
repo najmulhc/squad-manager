@@ -1,6 +1,5 @@
 import { useFormik } from "formik";
 import { useNavigate } from "react-router";
-import { addPlayer } from "../reducers/PlayerSlice";
 import {
   TextField,
   Button,
@@ -14,19 +13,7 @@ import {
 } from "@mui/material";
 import { useDispatch } from "react-redux";
 
-const PlayerForm = ({
-  name,
-  age,
-  playerType,
-  matchesPlayed,
-  text,
-}: {
-  name: string;
-  age: string;
-  playerType: "Batter" | "WicketKeeper" | "Bowler";
-  matchesPlayed: string;
-  text: "Add Player" | "Update Player";
-}) => {
+const PlayerForm = ({ name, age, playerType, matchesPlayed, text, task }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const initialValues: {
@@ -50,7 +37,7 @@ const PlayerForm = ({
     // You can perform your desired actions here
 
     console.log(values);
-    dispatch(addPlayer({ ...values }));
+    dispatch(task({ ...values }));
     navigate("/");
   };
 
@@ -114,7 +101,7 @@ const PlayerForm = ({
                 id="name"
                 name="name"
                 label="Name"
-                value={formik.values.name || name}
+                value={formik.values.name || name || " "}
                 onChange={formik.handleChange}
                 error={formik.touched.name && Boolean(formik.errors.name)}
                 helperText={formik.touched.name && formik.errors.name}
@@ -128,7 +115,7 @@ const PlayerForm = ({
                 name="age"
                 label="Age"
                 type="number"
-                value={parseInt(age) >= 18 ? age : formik.values.age}
+                value={formik.values.age || age}
                 onChange={formik.handleChange}
                 error={formik.touched.age && Boolean(formik.errors.age)}
                 helperText={formik.touched.age && formik.errors.age}

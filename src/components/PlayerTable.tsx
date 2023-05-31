@@ -10,7 +10,7 @@ import {
   Button,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { addToDelete } from "../reducers/PlayerSlice";
+import { addToDelete ,addToUpdate} from "../reducers/PlayerSlice";
 import { useNavigate } from "react-router";
 
 const PlayerTable = () => {
@@ -19,7 +19,12 @@ const PlayerTable = () => {
   const navigate = useNavigate();
   const addToDel = (item: any) => {
     dispatch(addToDelete(item));
-    navigate('/confirm-delete')
+    navigate("/confirm-delete");
+  };
+  const addToUpdatePlayer = (item: any) => {
+    dispatch(addToUpdate(item));
+ 
+    navigate("/update-player");
   };
   return (
     <div>
@@ -59,6 +64,7 @@ const PlayerTable = () => {
                     variant="contained"
                     color="success"
                     size="small"
+                    onClick={() => addToUpdatePlayer(player)}
                   >
                     Update
                   </Button>

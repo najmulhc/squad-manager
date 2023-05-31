@@ -39,6 +39,7 @@ const initialState = {
     },
   ],
   toDelete: {},
+  toUpdate: {},
 };
 
 const playerSlice = createSlice({
@@ -56,6 +57,10 @@ const playerSlice = createSlice({
       console.log(action.payload);
       state.toDelete = { ...action.payload };
     },
+    addToUpdate: (state, action) => {
+       
+      state.toUpdate = { ...action.payload };
+    },
     deletePlayer: (state, action) => {
       const playerIdToDelete = state.toDelete?.id;
       state.players = state.players.filter(
@@ -63,9 +68,32 @@ const playerSlice = createSlice({
       );
       state.toDelete = {};
     },
+    updatePlayer: (state, action) => {
+      const updatedPlayer = action.payload;
+      const playerIdToUpdate = updatedPlayer.id;
+
+      state.players = state.players.map((player) => {
+        if (player.id === state.toUpdate.id) {
+          for (const prop in updatedPlayer) {
+            if (updatedPlayer[prop] !== "") {
+              player[prop] = updatedPlayer[prop];
+            }
+          }
+        }
+        return player;
+      });
+
+      state.toUpdate = {};
+    },
   },
 });
 
-export const { addPlayer, addToDelete, deletePlayer } = playerSlice.actions;
+export const {
+  addPlayer,
+  addToDelete,
+  deletePlayer,
+  addToUpdate,
+  updatePlayer,
+} = playerSlice.actions;
 
 export default playerSlice.reducer;

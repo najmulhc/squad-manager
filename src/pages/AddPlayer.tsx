@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material";
 import PlayerForm from "../components/PlayerForm";
+import { addPlayer } from "../reducers/PlayerSlice";
 
 export default function AddPlayer() {
   return (
@@ -24,7 +25,7 @@ export default function AddPlayer() {
       >
         Add Player
       </Typography>
-      <PlayerForm text="Add Player" name="" age={0} playerType="Batter" matchesPlayed={0} />
+      <PlayerForm text="Add Player" name="" age={0} playerType="Batter" matchesPlayed={0}  task={addPlayer}/>
     </main>
   );
 }

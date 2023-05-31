@@ -1,7 +1,10 @@
 import { Typography } from "@mui/material";
 import PlayerForm from "../components/PlayerForm";
+import { useSelector } from "react-redux";
+import { updatePlayer } from "../reducers/PlayerSlice";
 
 export default function UpdatePlayer() {
+  const {toUpdate} = useSelector(state => state.players)
   return (
     <main
       style={{
@@ -24,7 +27,7 @@ export default function UpdatePlayer() {
       >
         Update Player
       </Typography>
-      <PlayerForm text="Update Player" name="Liton Das" age={28} playerType="Batter" matchesPlayed={112} />
+      <PlayerForm text="Update Player" name={toUpdate.name} age={toUpdate.age} playerType={toUpdate.playerType} matchesPlayed={toUpdate.matchesPlayed} task={updatePlayer} />
     </main>
   );
 }
