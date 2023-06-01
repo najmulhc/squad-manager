@@ -10,7 +10,7 @@ import {
   Button
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { addToDelete, addToUpdate } from "../reducers/Slice";
+import { addToDelete, addToUpdate } from "../reducers/PlayerSlice";
 import { useNavigate } from "react-router";
 const PlayerTable = () => {
   const { players } = useSelector((state) => state.players);
