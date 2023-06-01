@@ -58,11 +58,10 @@ const playerSlice = createSlice({
       state.toDelete = { ...action.payload };
     },
     addToUpdate: (state, action) => {
-       
       state.toUpdate = { ...action.payload };
     },
-    deletePlayer: (state, action) => {
-      const playerIdToDelete = state.toDelete?.id;
+    deletePlayer: (state ) => {
+      const playerIdToDelete = state.toDelete.id;
       state.players = state.players.filter(
         (player) => player.id !== playerIdToDelete
       );
@@ -70,7 +69,6 @@ const playerSlice = createSlice({
     },
     updatePlayer: (state, action) => {
       const updatedPlayer = action.payload;
-      const playerIdToUpdate = updatedPlayer.id;
 
       state.players = state.players.map((player) => {
         if (player.id === state.toUpdate.id) {

@@ -16,24 +16,14 @@ import { useDispatch } from "react-redux";
 const PlayerForm = ({ name, age, playerType, matchesPlayed, text, task }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const initialValues: {
-    name: string;
-    age: string;
-    playerType: "Batter" | "WicketKeeper" | "Bowler";
-    matchesPlayed: string;
-  } = {
+  const initialValues = {
     name: "",
     age: "",
     playerType: "Batter",
     matchesPlayed: "",
   };
 
-  const handleSubmit = (values: {
-    name: string;
-    age: string;
-    playerType: "Batter" | "WicketKeeper" | "Bowler";
-    matchesPlayed: string;
-  }) => {
+  const handleSubmit = (values) => {
     // You can perform your desired actions here
 
     console.log(values);
@@ -46,12 +36,7 @@ const PlayerForm = ({ name, age, playerType, matchesPlayed, text, task }) => {
     initialValues,
     onSubmit: handleSubmit,
     validate: (values) => {
-      const errors: {
-        name?: string;
-        age?: string;
-        playerType?: string;
-        matchesPlayed?: string | number;
-      } = {};
+      const errors = {};
 
       if (!name && values.name === "") {
         errors.name = "Enter the Name of the Player";

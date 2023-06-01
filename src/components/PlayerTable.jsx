@@ -7,23 +7,22 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Button,
+  Button
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { addToDelete ,addToUpdate} from "../reducers/PlayerSlice";
+import { addToDelete, addToUpdate } from "../reducers/Slice";
 import { useNavigate } from "react-router";
-
 const PlayerTable = () => {
   const { players } = useSelector((state) => state.players);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const addToDel = (item: any) => {
+  const addToDel = (item) => {
     dispatch(addToDelete(item));
     navigate("/confirm-delete");
   };
-  const addToUpdatePlayer = (item: any) => {
+  const addToUpdatePlayer = (item ) => {
     dispatch(addToUpdate(item));
- 
+
     navigate("/update-player");
   };
   return (
@@ -50,7 +49,7 @@ const PlayerTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {players.map((player) => (
+            {players.map((player ) => (
               <TableRow key={player.id}>
                 <TableCell>{player.name}</TableCell>
                 <TableCell>{player.playerType}</TableCell>
